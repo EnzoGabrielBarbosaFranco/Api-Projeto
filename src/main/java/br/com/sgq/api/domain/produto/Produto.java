@@ -1,6 +1,7 @@
 package br.com.sgq.api.domain.produto;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.*;
 
 @Table(name = "produtos")
@@ -24,7 +25,6 @@ public class Produto {
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
     private boolean ativo;
-    @Lob
     private String imagem;
 
 
@@ -54,7 +54,6 @@ public class Produto {
     public void inativar() {
         this.ativo = false;
     }
-
     public void ativar() {
         this.ativo = true;
     }

@@ -1,7 +1,5 @@
 package br.com.sgq.api.domain.produto;
 
-import jakarta.persistence.Lob;
-
 public record DadosDetalhesProduto(Long id,
                                    String nome,
                                    String descricao,
@@ -10,7 +8,6 @@ public record DadosDetalhesProduto(Long id,
                                    int quantidade,
                                    double valor,
                                    Categoria categoria,
-                                   @Lob
                                    String imagem) {
 
     public DadosDetalhesProduto(Produto produto) {

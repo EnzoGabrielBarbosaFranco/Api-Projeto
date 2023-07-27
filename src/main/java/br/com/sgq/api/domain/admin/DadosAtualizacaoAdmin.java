@@ -6,6 +6,6 @@ public record DadosAtualizacaoAdmin(@NotNull
                                     String nome,
                                     String login,
                                     String senha
-        
+
 ) {
 }

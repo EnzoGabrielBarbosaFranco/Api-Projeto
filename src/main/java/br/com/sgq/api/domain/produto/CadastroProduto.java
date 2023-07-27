@@ -1,6 +1,5 @@
 package br.com.sgq.api.domain.produto;
 
-import jakarta.persistence.Lob;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -21,6 +20,5 @@ public record CadastroProduto(
         double valor,
         @NotNull
         Categoria categoria,
-        @Lob
         String imagem) {
 }

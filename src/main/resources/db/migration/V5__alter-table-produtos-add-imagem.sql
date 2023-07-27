@@ -1,2 +1,1 @@
-alter table produtos
-add column imagem LONGBLOB;
+ALTER TABLE produtos ADD COLUMN imagem LONGBLOB;
