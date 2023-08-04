@@ -22,12 +22,21 @@ public class AdminController {
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid CadastroAdmin dados, UriComponentsBuilder uriBuilder) {
+        // criptogra a senha
+        // devolve para o objeto dados
+        // salva
         var admin = new Admin(dados);
         repository.save(admin);
         var uri = uriBuilder.path("/admins/{id}").buildAndExpand(admin.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhesAdmin(admin));
     }
 
+    // TODO: 
+    // no controlador de login, no metodo logar, o usuario vai passar o usuario e a senha dele
+    // busca o usuario pelo login
+    // criptografa a senha enviada
+    // compara com a senha buscada do banco
+    // compara a senha enviada que acabou de criptograr com a senha criptografada que ja foi salva no banco
     @GetMapping
     public ResponseEntity<Page<DadosListagemAdmin>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemAdmin::new);
