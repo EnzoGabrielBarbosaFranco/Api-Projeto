@@ -7,12 +7,8 @@ import jakarta.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 
-import java.util.HashSet;
 
-import javax.persistence.ManyToMany;
 import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
