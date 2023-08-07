@@ -2,6 +2,7 @@ package br.com.sgq.api.usuario;
 
 import br.com.sgq.api.utils.EntidadeBase;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,10 +32,7 @@ public class Usuario extends EntidadeBase {
 	@Column(length = 120, nullable = false)
 	private String senha;
 
-    @ManyToMany
-	@JoinTable(	name = "usuario_role", 
-				joinColumns = @JoinColumn(name = "usuario_id"), 
-				inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @OneToMany
 	private Set<Role> roles = new HashSet<>();
 
     public Usuario(String nome, String login, String senha) {

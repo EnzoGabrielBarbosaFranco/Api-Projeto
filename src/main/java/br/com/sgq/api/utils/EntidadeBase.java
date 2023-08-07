@@ -19,8 +19,4 @@ public class EntidadeBase {
     public void setId(Long id) {
         this.id = id;
     }
-
-    
-
-  
 }
