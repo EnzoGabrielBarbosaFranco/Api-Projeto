@@ -1,8 +1,8 @@
 package br.com.sgq.api.domain.admin;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
 import lombok.Setter;
-
 public record CadastroAdmin(
         @NotBlank
         String nome,

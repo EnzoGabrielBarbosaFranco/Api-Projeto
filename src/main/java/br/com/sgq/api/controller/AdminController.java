@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -22,10 +23,8 @@ public class AdminController {
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid CadastroAdmin dados, UriComponentsBuilder uriBuilder) {
-        // criptogra a senha
-        // devolve para o objeto dados
-        // salva
-        var admin = new Admin(dados);
+       String senhaCriptografada = DigestUtils.md5Digest(dados.senha().getBytes()).toString();
+        var admin = new Admin(dados.nome(), dados.login(), senhaCriptografada);
         repository.save(admin);
         var uri = uriBuilder.path("/admins/{id}").buildAndExpand(admin.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhesAdmin(admin));

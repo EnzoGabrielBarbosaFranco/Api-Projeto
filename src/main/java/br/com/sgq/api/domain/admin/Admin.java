@@ -31,6 +31,13 @@ public class Admin {
         this.ativo = true;
     }
 
+    public Admin(String nome, String login, String senha){
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+        this.ativo = true;
+    }
+
     public void atualizarInformacoes(DadosAtualizacaoAdmin dados) {
         this.nome = dados.nome() != null ? dados.nome() : this.nome;
         this.login = dados.login() != null ? dados.login() : this.login;
