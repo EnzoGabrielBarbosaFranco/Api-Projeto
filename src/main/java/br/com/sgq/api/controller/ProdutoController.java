@@ -19,13 +19,13 @@ public class ProdutoController {
     private ProdutoRepository repository;
 
     @GetMapping
-    public ResponseEntity<Page<DadosListagemProduto>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosListagemProduto>> listar(@PageableDefault(size = 50, sort = {"nome"}) Pageable paginacao) {
         var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemProduto::new);
         return ResponseEntity.ok(page);
     }
 
     @GetMapping("/inativos")
-    public ResponseEntity<Page<DadosListagemProduto>> listarInativos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosListagemProduto>> listarInativos(@PageableDefault(size = 50, sort = {"nome"}) Pageable paginacao) {
         var page = repository.findAllByAtivoFalse(paginacao).map(DadosListagemProduto::new);
         return ResponseEntity.ok(page);
     }

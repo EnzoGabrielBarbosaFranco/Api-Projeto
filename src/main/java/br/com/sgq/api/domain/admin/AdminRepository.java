@@ -6,6 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AdminRepository extends JpaRepository<Admin, Long> {
     Page<Admin> findAllByAtivoTrue(Pageable paginacao);
-
     Page<Admin> findAllByAtivoFalse(Pageable paginacao);
 }

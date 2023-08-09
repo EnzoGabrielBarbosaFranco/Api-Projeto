@@ -1,7 +1,6 @@
 package br.com.sgq.api.controller;
 
 import br.com.sgq.api.domain.admin.*;
-import br.com.sgq.api.domain.produto.DadosDetalhesProduto;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +36,13 @@ public class AdminController {
     // compara com a senha buscada do banco
     // compara a senha enviada que acabou de criptograr com a senha criptografada que ja foi salva no banco
     @GetMapping
-    public ResponseEntity<Page<DadosListagemAdmin>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosListagemAdmin>> listar(@PageableDefault(size = 50, sort = {"nome"}) Pageable paginacao) {
         var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemAdmin::new);
         return ResponseEntity.ok(page);
     }
 
     @GetMapping("/inativos")
-    public ResponseEntity<Page<DadosListagemAdmin>> listarInativos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosListagemAdmin>> listarInativos(@PageableDefault(size = 50, sort = {"nome"}) Pageable paginacao) {
         var page = repository.findAllByAtivoFalse(paginacao).map(DadosListagemAdmin::new);
         return ResponseEntity.ok(page);
     }
