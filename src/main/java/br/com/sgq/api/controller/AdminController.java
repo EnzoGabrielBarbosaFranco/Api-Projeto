@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
@@ -22,27 +23,55 @@ public class AdminController {
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid CadastroAdmin dados, UriComponentsBuilder uriBuilder) {
-       String senhaCriptografada = DigestUtils.md5Digest(dados.senha().getBytes()).toString();
+        String senhaCriptografada = DigestUtils.md5Digest(dados.senha().getBytes()).toString();
         var admin = new Admin(dados.nome(), dados.login(), senhaCriptografada);
         repository.save(admin);
         var uri = uriBuilder.path("/admins/{id}").buildAndExpand(admin.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhesAdmin(admin));
     }
 
-    // TODO: 
-    // no controlador de login, no metodo logar, o usuario vai passar o usuario e a senha dele
+    // TODO:
+    // no controlador de login, no metodo logar, o usuario vai passar o usuario e a
+    // senha dele
     // busca o usuario pelo login
     // criptografa a senha enviada
     // compara com a senha buscada do banco
-    // compara a senha enviada que acabou de criptograr com a senha criptografada que ja foi salva no banco
+    // compara a senha enviada que acabou de criptograr com a senha criptografada
+    // que ja foi salva no banco
+
+    // @PostMapping("/login")
+    // public ResponseEntity<?> logar(@RequestBody CadastroAdmin dados) {
+    //     String login = dados.login();
+    //     String senhaEnviada = dados.senha();
+
+    //     // Buscar o admin pelo login
+    //     Admin admin = repository.getReferenceById(dados.login());
+
+    //     if (admin == null) {
+    //         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+    //                 .body("Usuário não encontrado.");
+    //     }
+
+    //     String senhaCriptografadaEnviada = DigestUtils.md5Digest(senhaEnviada.getBytes()).toString();
+
+    //     if (!senhaCriptografadaEnviada.equals(admin.getSenha())) {
+    //         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+    //                 .body("Senha incorreta.");
+    //     }
+
+    //     return ResponseEntity.ok("Login bem-sucedido."); // ou o que for apropriado para sua lógica
+    // }
+
     @GetMapping
-    public ResponseEntity<Page<DadosListagemAdmin>> listar(@PageableDefault(size = 50, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosListagemAdmin>> listar(
+            @PageableDefault(size = 50, sort = { "nome" }) Pageable paginacao) {
         var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemAdmin::new);
         return ResponseEntity.ok(page);
     }
 
     @GetMapping("/inativos")
-    public ResponseEntity<Page<DadosListagemAdmin>> listarInativos(@PageableDefault(size = 50, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosListagemAdmin>> listarInativos(
+            @PageableDefault(size = 50, sort = { "nome" }) Pageable paginacao) {
         var page = repository.findAllByAtivoFalse(paginacao).map(DadosListagemAdmin::new);
         return ResponseEntity.ok(page);
     }

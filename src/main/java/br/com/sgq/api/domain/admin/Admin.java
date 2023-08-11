@@ -32,10 +32,44 @@ public class Admin {
     }
 
     public Admin(String nome, String login, String senha){
+        if (nome == null || login == null || senha == null) {
+            throw new IllegalArgumentException("Dados de entrada inválidos");
+        }
+        if (!isSenhaSegura(senha)) {
+            throw new IllegalArgumentException("A senha não atende aos requisitos de segurança");
+        }
         this.nome = nome;
         this.login = login;
         this.senha = senha;
         this.ativo = true;
+    }
+
+    private boolean isSenhaSegura(String senha) {
+        // Verificar se a senha tem pelo menos 8 caracteres
+        if (senha.length() < 8) {
+            return false;
+        }
+        
+        // Verificar se a senha contém pelo menos uma letra maiúscula
+        boolean hasUpperCase = false;
+        for (char c : senha.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                hasUpperCase = true;
+                break;
+            }
+        }
+        
+        // Verificar se a senha contém pelo menos um número
+        boolean hasDigit = false;
+        for (char c : senha.toCharArray()) {
+            if (Character.isDigit(c)) {
+                hasDigit = true;
+                break;
+            }
+        }
+        
+        // Verificar se a senha atende a todos os critérios
+        return hasUpperCase && hasDigit;
     }
 
     public void atualizarInformacoes(DadosAtualizacaoAdmin dados) {
