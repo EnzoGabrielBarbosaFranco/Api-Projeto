@@ -32,12 +32,12 @@ public class Admin {
     }
 
     public Admin(String nome, String login, String senha){
-        if (nome == null || login == null || senha == null) {
-            throw new IllegalArgumentException("Dados de entrada inválidos");
-        }
-        if (!isSenhaSegura(senha)) {
-            throw new IllegalArgumentException("A senha não atende aos requisitos de segurança");
-        }
+        // if (nome == null || login == null || senha == null) {
+        //     throw new IllegalArgumentException("Dados de entrada inválidos");
+        // }
+        // if (!isSenhaSegura(senha)) {
+        //     throw new IllegalArgumentException("A senha não atende aos requisitos de segurança");
+        // }
         this.nome = nome;
         this.login = login;
         this.senha = senha;
