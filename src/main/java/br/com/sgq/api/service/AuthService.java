@@ -35,6 +35,6 @@ public class AuthService {
                     .body("Senha incorreta.");
         }
 
-        return ResponseEntity.ok("Login bem-sucedido.");
+        return ResponseEntity.ok("Login bem-sucedido." + admin.getNome());
     }
 }
