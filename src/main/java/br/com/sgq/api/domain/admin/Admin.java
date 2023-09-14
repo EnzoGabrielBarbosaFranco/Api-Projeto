@@ -22,6 +22,7 @@ public class Admin {
 
     private String senha;
 
+    // ativo false se tiver mais que 4 tentativas de login falhas
     private boolean ativo;
 
     public Admin(CadastroAdmin dados) {
