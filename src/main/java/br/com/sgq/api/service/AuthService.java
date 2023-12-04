@@ -1,6 +1,10 @@
 package br.com.sgq.api.service;
 
+import br.com.sgq.api.token.JwtTokenProvider;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,6 +15,7 @@ import br.com.sgq.api.domain.admin.AdminRepository;
 import br.com.sgq.api.domain.admin.TentativasLogin;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +25,9 @@ public class AuthService {
 
     @Autowired
     private AdminRepository adminRepository;
+
+    @Autowired
+    private JwtTokenProvider tokenProvider;
 
     private static final int MAX_TENTATIVAS_FALHAS = 20;
 
@@ -66,7 +74,12 @@ public class AuthService {
         } else {
             // Login bem-sucedido, então remova as tentativas de login falhas
             usuariosBloqueados.remove(admin.getId());
-            return ResponseEntity.ok("Login bem-sucedido." + admin.getNome());
+
+            // Gere o token JWT
+            String token = tokenProvider.generateToken(login);
+
+            return ResponseEntity.ok("Login bem-sucedido." + admin.getNome() + " Token: " + token);
         }
     }
+
 }

@@ -22,6 +22,8 @@ public class Admin {
 
     private String senha;
 
+    private boolean admin;
+
     // ativo false se tiver mais que 4 tentativas de login falhas
     private boolean ativo;
 
@@ -29,19 +31,15 @@ public class Admin {
         this.nome = dados.nome();
         this.login = dados.login();
         this.senha = dados.senha();
+        this.admin = true;
         this.ativo = true;
     }
 
     public Admin(String nome, String login, String senha){
-        // if (nome == null || login == null || senha == null) {
-        //     throw new IllegalArgumentException("Dados de entrada inválidos");
-        // }
-        // if (!isSenhaSegura(senha)) {
-        //     throw new IllegalArgumentException("A senha não atende aos requisitos de segurança");
-        // }
         this.nome = nome;
         this.login = login;
         this.senha = senha;
+        this.admin = true;
         this.ativo = true;
     }
 

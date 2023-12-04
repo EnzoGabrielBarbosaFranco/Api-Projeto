@@ -13,7 +13,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/produtos")
-@CrossOrigin(origins = "*")
 public class ProdutoController {
     @Autowired
     private ProdutoRepository repository;
